@@ -1,0 +1,331 @@
+2026-07-04 17:10:57,803 | INFO | root | =========================================================== Pipeline complete ===========================================================
+2026-07-04 17:10:57,821 | INFO | root | =============== Data Display ===============
+2026-07-04 17:10:57,821 | INFO | root | = HISTORY ===========================
+2026-07-04 17:10:57,822 | INFO | root |      claim_id payer_id    payer_type  visit_type  total_billed  expected_payment  ...  referral_required  referral_present  split  service_month  is_denied                            denial_reason
+0  HCLM-00001     P008  Medicaid MCO  Outpatient       4311.44           1404.82  ...                  0                 0  train        2024-06          1  Payer policy or medical necessity issue
+1  HCLM-00002     P001    Commercial   Inpatient      10420.64           6065.91  ...                  1                 1  train        2024-06          0                                      NaN
+2  HCLM-00003     P010          BCBS  Outpatient      38369.33          20712.61  ...                  0                 0  train        2024-02          1      Documentation incomplete or missing
+
+[3 rows x 20 columns]
+2026-07-04 17:10:57,859 | INFO | root | = CURRENT ===========================
+2026-07-04 17:10:57,860 | INFO | root |      claim_id payer_id          payer_type  visit_type  total_billed  ...  missing_documentation_flag  eligibility_verified  referral_required  referral_present  service_month
+0  CCLM-00001     P004          Commercial   Emergency       2617.41  ...                           0                     1                  0                 0        2025-01
+1  CCLM-00002     P003          Commercial  Outpatient       3060.56  ...                           0                     1                  0                 0        2025-02
+2  CCLM-00003     P006  Medicare Advantage  Outpatient      11345.61  ...                           0                     0                  0                 0        2025-01
+
+[3 rows x 17 columns]
+2026-07-04 17:10:57,895 | INFO | root |   train         n=2,122  denial_rate=0.211  n_denied=448
+2026-07-04 17:10:57,896 | INFO | root |   validation    n=539  denial_rate=0.191  n_denied=103
+2026-07-04 17:10:57,898 | INFO | root |   test          n=539  denial_rate=0.260  n_denied=140
+2026-07-04 17:10:57,898 | INFO | root |   current       n=500  (no labels)
+2026-07-04 17:10:58,300 | INFO | matplotlib.category | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-07-04 17:10:58,301 | INFO | matplotlib.category | Using categorical units to plot a list of strings that are all parsable as floats or dates. If these strings should be plotted as numbers, cast to the appropriate data type before plotting.
+2026-07-04 17:10:58,660 | INFO | root | ################## EDA Key Findings ##################
+2026-07-04 17:10:58,661 | INFO | root |   Total Claims in Training Data : 2122
+2026-07-04 17:10:58,661 | INFO | root |   Total Denied Claims in Training Data : 448
+2026-07-04 17:10:58,661 | INFO | root | --------------------------------------------------
+2026-07-04 17:10:58,663 | INFO | root |   Reasons for denial:: 
+ denial_reason
+Authorization required but not on file          46
+Claim submitted after timely filing deadline    43
+Documentation incomplete or missing             88
+Patient eligibility could not be verified       58
+Payer policy or medical necessity issue         88
+Procedure or diagnosis coding error             46
+Provider not in network for this payer          48
+Referral required but not present               31
+Name: is_denied, dtype: int64
+2026-07-04 17:10:58,663 | INFO | root | --------------------------------------------------
+2026-07-04 17:10:58,664 | INFO | root |   Highest denial payer type : Medicaid MCO (30.3%)
+2026-07-04 17:10:58,664 | INFO | root |   Lowest  denial payer type : Commercial (14.6%)
+2026-07-04 17:10:58,664 | INFO | root |   0 compliance gaps denial rate: 12.1%
+2026-07-04 17:10:58,665 | INFO | root |   3+ compliance gaps denial rate: 66.0%
+2026-07-04 17:10:58,666 | INFO | root |   Auth gap present   : 44.9%
+2026-07-04 17:10:58,668 | INFO | root |   Ref gap present   : 32.8%
+2026-07-04 17:10:58,669 | INFO | root |   Eligibility not verified: 35.3%
+2026-07-04 17:10:58,670 | INFO | root |   Out of network     : 25.7%
+2026-07-04 17:10:58,816 | INFO | root |   Columns after engineering: 85
+2026-07-04 17:10:58,816 | INFO | root |   Columns after engineering: 82
+
+2026-07-04 17:10:58,817 | INFO | root | split
+2026-07-04 17:10:58,817 | INFO | root | is_denied
+2026-07-04 17:10:58,817 | INFO | root | denial_reason
+2026-07-04 17:10:58,834 | INFO | root |   Target payer_type   : min=0.147  max=0.301
+2026-07-04 17:10:58,837 | INFO | root |   Target visit_type   : min=0.185  max=0.303
+2026-07-04 17:10:58,838 | INFO | root |   Target payer_id     : min=0.109  max=0.332
+2026-07-04 17:10:58,865 | INFO | root |        claim_id  payer_id  payer_type  visit_type  total_billed  expected_payment  ...  elig_importance  payer_importance  visit_importance  te_payer_type  te_visit_type  te_payer_id
+0    CCLM-00001         3           1           0       2617.41           1120.76  ...         0.166667          0.148148          0.153846       0.146672       0.190072     0.152491
+1    CCLM-00002         2           1           3       3060.56           1961.11  ...         0.120482          0.198830          0.117647       0.146672       0.184634     0.199509
+2    CCLM-00003         5           3           3      11345.61           4650.61  ...         0.583333          0.251337          0.262626       0.235725       0.184634     0.249296
+3    CCLM-00004         2           1           1      47634.66          23640.30  ...         0.379310          0.198830          0.406250       0.146672       0.303143     0.199509
+4    CCLM-00005         7           2           3       2453.93            793.59  ...         0.290909          0.339869          0.281690       0.300808       0.184634     0.331971
+..          ...       ...         ...         ...           ...               ...  ...              ...               ...               ...            ...            ...          ...
+495  CCLM-00496         4           3           2       3869.97           1321.77  ...         0.260870          0.222222          0.307692       0.235725       0.190884     0.221689
+496  CCLM-00497         0           1           2       3740.88           2057.47  ...         0.000000          0.103774          0.045455       0.146672       0.190884     0.108609
+497  CCLM-00498         6           2           0       9144.16           3570.37  ...         0.259259          0.282486          0.351351       0.300808       0.190072     0.278670
+498  CCLM-00499        10           1           0      14296.33           7499.72  ...         0.073171          0.126638          0.069767       0.146672       0.190072     0.130172
+499  CCLM-00500        10           1           1      31619.27          19120.59  ...         0.250000          0.126638          0.260870       0.146672       0.303143     0.130172
+
+[500 rows x 75 columns]
+2026-07-04 17:10:58,947 | INFO | root |   train:(2122, 72)  val:(539, 72)  test:(539, 72)  current:(500, 72)
+2026-07-04 17:10:58,947 | INFO | root |   Feature count     : 72
+2026-07-04 17:10:58,947 | INFO | root |   scale_pos_weight  : 3.74  (denial rate = 0.211)
+2026-07-04 17:11:00,241 | INFO | root |   Model                 Recall@25%   AUC
+2026-07-04 17:11:00,245 | INFO | root |   LR_baseline           0.3689       0.6140
+2026-07-04 17:11:00,372 | INFO | root |   RF_baseline           0.4660       0.6836
+2026-07-04 17:11:00,378 | INFO | root |   LGB_baseline          0.3883       0.6220
+2026-07-04 17:11:00,382 | INFO | root |   XGB_baseline          0.3689       0.6126
+2026-07-04 17:11:36,057 | INFO | root |   LR  best CV Recall@25% : 0.5560
+2026-07-04 17:13:55,134 | INFO | root |   RF  best CV Recall@25% : 0.5203
+2026-07-04 17:14:28,159 | INFO | root |   LGB best CV Recall@25% : 0.5338
+2026-07-04 17:15:07,197 | INFO | root |   XGB best CV Recall@25% : 0.5293
+2026-07-04 17:15:07,980 | INFO | root | 
+  Model            Recall@25%   AUC   (validation)
+2026-07-04 17:15:07,983 | INFO | root |   LR_tuned         0.3689       0.6108
+2026-07-04 17:15:08,093 | INFO | root |   RF_tuned         0.4757       0.6860
+2026-07-04 17:15:08,098 | INFO | root |   LGB_tuned        0.4563       0.6720
+2026-07-04 17:15:08,101 | INFO | root |   XGB_tuned        0.4660       0.6689
+2026-07-04 17:15:11,196 | INFO | root |   Before: 2,122 samples  dr=0.211
+2026-07-04 17:15:11,197 | INFO | root |   After : 2,511 samples  dr=0.333
+2026-07-04 17:15:11,941 | INFO | root |   LR_smote         Recall@25%=0.3883  AUC=0.6138
+2026-07-04 17:15:12,038 | INFO | root |   RF_smote         Recall@25%=0.4854  AUC=0.6891
+2026-07-04 17:15:12,041 | INFO | root |   LGB_smote        Recall@25%=0.4951  AUC=0.6929
+2026-07-04 17:15:12,044 | INFO | root |   XGB_smote        Recall@25%=0.4951  AUC=0.6781
+2026-07-04 17:15:12,327 | INFO | root | 
+Selected Models:
+  LR  :: smote
+  RF  :: smote
+  LGB :: smote
+  XGB :: smote
+2026-07-04 17:15:12,626 | INFO | root | 
+Error Analysis: rf_tuned
+2026-07-04 17:15:12,626 | INFO | root | Total denials   : 140
+2026-07-04 17:15:12,626 | INFO | root | Captured (@25%) : 64 (45.7%)
+2026-07-04 17:15:12,627 | INFO | root | Missed (FN)     : 76 (54.3%)
+2026-07-04 17:15:12,634 | INFO | root | 
+Error Analysis: lgb_tuned
+2026-07-04 17:15:12,634 | INFO | root | Total denials   : 140
+2026-07-04 17:15:12,635 | INFO | root | Captured (@25%) : 59 (42.1%)
+2026-07-04 17:15:12,635 | INFO | root | Missed (FN)     : 81 (57.9%)
+2026-07-04 17:15:12,640 | INFO | root | 
+Error Analysis: xgb_tuned
+2026-07-04 17:15:12,641 | INFO | root | Total denials   : 140
+2026-07-04 17:15:12,641 | INFO | root | Captured (@25%) : 64 (45.7%)
+2026-07-04 17:15:12,641 | INFO | root | Missed (FN)     : 76 (54.3%)
+2026-07-04 17:15:12,821 | INFO | root | 
+Error Analysis: rf_smote
+2026-07-04 17:15:12,822 | INFO | root | Total denials   : 140
+2026-07-04 17:15:12,822 | INFO | root | Captured (@25%) : 63 (45.0%)
+2026-07-04 17:15:12,822 | INFO | root | Missed (FN)     : 77 (55.0%)
+2026-07-04 17:15:12,831 | INFO | root | 
+Error Analysis: lgb_smote
+2026-07-04 17:15:12,924 | INFO | root | Total denials   : 140
+2026-07-04 17:15:12,925 | INFO | root | Captured (@25%) : 62 (44.3%)
+2026-07-04 17:15:12,925 | INFO | root | Missed (FN)     : 78 (55.7%)
+2026-07-04 17:15:12,931 | INFO | root | 
+Error Analysis: xgb_smote
+2026-07-04 17:15:12,968 | INFO | root | Total denials   : 140
+2026-07-04 17:15:12,969 | INFO | root | Captured (@25%) : 65 (46.4%)
+2026-07-04 17:15:12,969 | INFO | root | Missed (FN)     : 75 (53.6%)
+2026-07-04 17:15:12,971 | INFO | root |  Threshold (top-25% volume, val-calibrated) : 0.3142
+2026-07-04 17:15:12,971 | INFO | root |   xgb_smote
+2026-07-04 17:15:12,979 | INFO | root |     Precision@25%   0.4444
+2026-07-04 17:15:12,979 | INFO | root |     Lift@25%        1.71×
+2026-07-04 17:15:12,982 | INFO | root |     ROC-AUC       0.6707
+2026-07-04 17:15:12,983 | INFO | root |     PR-AUC        0.4801
+2026-07-04 17:15:12,985 | INFO | root |     Brier Score   0.1763
+2026-07-04 17:15:12,992 | INFO | root |               precision    recall  f1-score   support
+
+           0      0.808     0.789     0.798       399
+           1      0.436     0.464     0.450       140
+
+    accuracy                          0.705       539
+   macro avg      0.622     0.627     0.624       539
+weighted avg      0.711     0.705     0.708       539
+
+2026-07-04 17:15:13,000 | INFO | root | 
+  Payer type — Missed vs Captured:
+2026-07-04 17:15:13,003 | INFO | root |             Missed_%  Captured_%
+payer_type                      
+0              0.187       0.154
+1              0.360       0.154
+2              0.267       0.492
+3              0.187       0.200
+2026-07-04 17:15:13,004 | INFO | root | 
+  Visit type — Missed vs Captured:
+2026-07-04 17:15:13,007 | INFO | root |             Missed_%  Captured_%
+visit_type                      
+0              0.173       0.169
+1              0.213       0.431
+2              0.053       0.077
+3              0.560       0.323
+2026-07-04 17:15:13,040 | INFO | root | <class 'numpy.ndarray'>
+2026-07-04 17:15:13,043 | INFO | root | (539, 72)
+2026-07-04 17:15:16,242 | INFO | root |  Generating explanations for top 10 highest-risk claims 
+2026-07-04 17:15:17,101 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.384559 seconds
+2026-07-04 17:15:18,118 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.793083 seconds
+2026-07-04 17:15:20,838 | INFO | root |   [retry 1] CCLM-00285: Connection error.
+2026-07-04 17:15:23,343 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.387363 seconds
+2026-07-04 17:15:24,030 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.994573 seconds
+2026-07-04 17:15:25,495 | INFO | root |   [retry 2] CCLM-00285: Connection error.
+2026-07-04 17:15:27,948 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.394991 seconds
+2026-07-04 17:15:28,769 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.769689 seconds
+2026-07-04 17:15:30,000 | INFO | root |   [retry 3] CCLM-00285: Connection error.
+2026-07-04 17:15:32,003 | INFO | root | 
+CCLM-00285  (risk=84%)
+2026-07-04 17:15:32,003 | INFO | root |   Drivers: prior authorization required but not on file; required documentation appears incomplete or missing
+2026-07-04 17:15:32,463 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.399823 seconds
+2026-07-04 17:15:33,383 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.768336 seconds
+2026-07-04 17:15:34,809 | INFO | root |   [retry 1] CCLM-00259: Connection error.
+2026-07-04 17:15:37,275 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.460581 seconds
+2026-07-04 17:15:38,601 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.932993 seconds
+2026-07-04 17:15:40,544 | INFO | root |   [retry 2] CCLM-00259: Connection error.
+2026-07-04 17:15:43,109 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.434800 seconds
+2026-07-04 17:15:44,334 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.755403 seconds
+2026-07-04 17:15:45,577 | INFO | root |   [retry 3] CCLM-00259: Connection error.
+2026-07-04 17:15:47,578 | INFO | root | 
+CCLM-00259  (risk=79%)
+2026-07-04 17:15:47,578 | INFO | root |   Drivers: prior authorization required but not on file; referral required but not present; billed amount is 2.8x the expected payment
+2026-07-04 17:15:47,964 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.473231 seconds
+2026-07-04 17:15:48,759 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.872704 seconds
+2026-07-04 17:15:50,083 | INFO | root |   [retry 1] CCLM-00116: Connection error.
+2026-07-04 17:15:52,543 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.433600 seconds
+2026-07-04 17:15:53,450 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.885372 seconds
+2026-07-04 17:15:55,396 | INFO | root |   [retry 2] CCLM-00116: Connection error.
+2026-07-04 17:15:57,868 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.412073 seconds
+2026-07-04 17:15:58,886 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.807823 seconds
+2026-07-04 17:16:00,208 | INFO | root |   [retry 3] CCLM-00116: Connection error.
+2026-07-04 17:16:02,209 | INFO | root | 
+CCLM-00116  (risk=78%)
+2026-07-04 17:16:02,210 | INFO | root |   Drivers: referral required but not present; patient eligibility not verified; billed amount is 2.9x the expected payment
+2026-07-04 17:16:02,433 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.387552 seconds
+2026-07-04 17:16:03,790 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.818476 seconds
+2026-07-04 17:16:04,917 | INFO | root |   [retry 1] CCLM-00214: Connection error.
+2026-07-04 17:16:07,377 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.422317 seconds
+2026-07-04 17:16:08,196 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.835111 seconds
+2026-07-04 17:16:16,484 | INFO | root |   [retry 2] CCLM-00214: Connection error.
+2026-07-04 17:16:19,362 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.409811 seconds
+2026-07-04 17:16:20,293 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.800804 seconds
+2026-07-04 17:16:21,886 | INFO | root |   [retry 3] CCLM-00214: Connection error.
+2026-07-04 17:16:23,888 | INFO | root | 
+CCLM-00214  (risk=76%)
+2026-07-04 17:16:23,889 | INFO | root |   Drivers: patient eligibility not verified; provider out of network for this payer; submitted late (37 days after service); billed amount is 3.2x the expected payment
+2026-07-04 17:16:24,255 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.376008 seconds
+2026-07-04 17:16:25,091 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.883183 seconds
+2026-07-04 17:16:26,425 | INFO | root |   [retry 1] CCLM-00386: Connection error.
+2026-07-04 17:16:28,881 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.415706 seconds
+2026-07-04 17:16:29,799 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.873829 seconds
+2026-07-04 17:16:31,344 | INFO | root |   [retry 2] CCLM-00386: Connection error.
+2026-07-04 17:16:33,695 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.492547 seconds
+2026-07-04 17:16:34,720 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.751117 seconds
+2026-07-04 17:16:35,845 | INFO | root |   [retry 3] CCLM-00386: Connection error.
+2026-07-04 17:16:37,846 | INFO | root | 
+CCLM-00386  (risk=74%)
+2026-07-04 17:16:37,846 | INFO | root |   Drivers: required documentation appears incomplete or missing; submitted late (38 days after service)
+2026-07-04 17:16:38,302 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.447338 seconds
+2026-07-04 17:16:39,130 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.756237 seconds
+2026-07-04 17:16:40,247 | INFO | root |   [retry 1] CCLM-00459: Connection error.
+2026-07-04 17:16:42,675 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.444764 seconds
+2026-07-04 17:16:43,635 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.867043 seconds
+2026-07-04 17:16:44,960 | INFO | root |   [retry 2] CCLM-00459: Connection error.
+2026-07-04 17:16:47,235 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.424060 seconds
+2026-07-04 17:16:48,147 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.867373 seconds
+2026-07-04 17:16:49,772 | INFO | root |   [retry 3] CCLM-00459: Connection error.
+2026-07-04 17:16:51,773 | INFO | root | 
+CCLM-00459  (risk=74%)
+2026-07-04 17:16:51,774 | INFO | root |   Drivers: prior authorization required but not on file; patient eligibility not verified; provider out of network for this payer; billed amount is 2.5x the expected payment
+2026-07-04 17:16:52,637 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.463770 seconds
+2026-07-04 17:16:53,454 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.891579 seconds
+2026-07-04 17:16:54,787 | INFO | root |   [retry 1] CCLM-00099: Connection error.
+2026-07-04 17:16:57,160 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.494888 seconds
+2026-07-04 17:16:57,976 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.934201 seconds
+2026-07-04 17:16:59,190 | INFO | root |   [retry 2] CCLM-00099: Connection error.
+2026-07-04 17:17:01,752 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.475499 seconds
+2026-07-04 17:17:02,746 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.789399 seconds
+2026-07-04 17:17:04,004 | INFO | root |   [retry 3] CCLM-00099: Connection error.
+2026-07-04 17:17:06,006 | INFO | root | 
+CCLM-00099  (risk=74%)
+2026-07-04 17:17:06,007 | INFO | root |   Drivers: prior authorization required but not on file; provider out of network for this payer; billed amount is 3.4x the expected payment
+2026-07-04 17:17:06,462 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.497543 seconds
+2026-07-04 17:17:07,262 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.821317 seconds
+2026-07-04 17:17:08,611 | INFO | root |   [retry 1] CCLM-00023: Connection error.
+2026-07-04 17:17:10,979 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.419770 seconds
+2026-07-04 17:17:12,001 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.956536 seconds
+2026-07-04 17:17:13,527 | INFO | root |   [retry 2] CCLM-00023: Connection error.
+2026-07-04 17:17:16,501 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.410495 seconds
+2026-07-04 17:17:17,330 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.846877 seconds
+2026-07-04 17:17:18,544 | INFO | root |   [retry 3] CCLM-00023: Connection error.
+2026-07-04 17:17:20,546 | INFO | root | 
+CCLM-00023  (risk=72%)
+2026-07-04 17:17:20,546 | INFO | root |   Drivers: prior authorization required but not on file; required documentation appears incomplete or missing; submitted late (42 days after service)
+2026-07-04 17:17:22,208 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.407138 seconds
+2026-07-04 17:17:24,500 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.798007 seconds
+2026-07-04 17:17:25,819 | INFO | root |   [retry 1] CCLM-00006: Connection error.
+2026-07-04 17:17:28,377 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.403052 seconds
+2026-07-04 17:17:29,142 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.755380 seconds
+2026-07-04 17:17:30,424 | INFO | root |   [retry 2] CCLM-00006: Connection error.
+2026-07-04 17:17:32,882 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.453423 seconds
+2026-07-04 17:17:33,802 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.805037 seconds
+2026-07-04 17:17:34,964 | INFO | root |   [retry 3] CCLM-00006: Connection error.
+2026-07-04 17:17:36,965 | INFO | root | 
+CCLM-00006  (risk=71%)
+2026-07-04 17:17:36,965 | INFO | root |   Drivers: provider out of network for this payer; required documentation appears incomplete or missing
+2026-07-04 17:17:37,693 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.450717 seconds
+2026-07-04 17:17:38,529 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.878001 seconds
+2026-07-04 17:17:40,050 | INFO | root |   [retry 1] CCLM-00170: Connection error.
+2026-07-04 17:17:42,564 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.444605 seconds
+2026-07-04 17:17:43,433 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.968350 seconds
+2026-07-04 17:17:44,765 | INFO | root |   [retry 2] CCLM-00170: Connection error.
+2026-07-04 17:17:47,931 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.398800 seconds
+2026-07-04 17:17:48,846 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.837012 seconds
+2026-07-04 17:17:50,278 | INFO | root |   [retry 3] CCLM-00170: Connection error.
+2026-07-04 17:17:52,280 | INFO | root | 
+CCLM-00170  (risk=70%)
+2026-07-04 17:17:52,281 | INFO | root |   Drivers: patient eligibility not verified; required documentation appears incomplete or missing
+2026-07-04 17:17:52,289 | INFO | root | Saved : C:\Users\IN45818359\Downloads\claim_classifier_modularized\project\outputs\top10_claim_explanations.csv
+2026-07-04 17:17:52,292 | INFO | root | #Generating explanations for bottom 10 low-risk claims
+2026-07-04 17:17:53,372 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.397981 seconds
+2026-07-04 17:17:54,489 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.915967 seconds
+2026-07-04 17:17:55,830 | INFO | root |   [retry 1] CCLM-00442: Connection error.
+2026-07-04 17:17:58,281 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.385322 seconds
+2026-07-04 17:17:59,071 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.919305 seconds
+2026-07-04 17:18:00,530 | INFO | root |   [retry 2] CCLM-00442: Connection error.
+2026-07-04 17:18:03,193 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.454539 seconds
+2026-07-04 17:18:04,219 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.924959 seconds
+2026-07-04 17:18:05,547 | INFO | root |   [retry 3] CCLM-00442: Connection error.
+2026-07-04 17:18:07,903 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.412159 seconds
+2026-07-04 17:18:08,823 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.954161 seconds
+2026-07-04 17:18:10,407 | INFO | root |   [retry 1] CCLM-00415: Connection error.
+2026-07-04 17:18:14,254 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.417344 seconds
+2026-07-04 17:18:15,171 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.839014 seconds
+2026-07-04 17:18:16,317 | INFO | root |   [retry 2] CCLM-00415: Connection error.
+2026-07-04 17:18:18,665 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.382942 seconds
+2026-07-04 17:18:19,372 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.820621 seconds
+2026-07-04 17:18:21,707 | INFO | root |   [retry 3] CCLM-00415: Connection error.
+2026-07-04 17:18:24,698 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.429052 seconds
+2026-07-04 17:18:25,724 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.841780 seconds
+2026-07-04 17:18:26,918 | INFO | root |   [retry 1] CCLM-00035: Connection error.
+2026-07-04 17:18:31,162 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.390579 seconds
+2026-07-04 17:18:31,969 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.760848 seconds
+2026-07-04 17:18:33,196 | INFO | root |   [retry 2] CCLM-00035: Connection error.
+2026-07-04 17:18:35,644 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.435540 seconds
+2026-07-04 17:18:36,577 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.971664 seconds
+2026-07-04 17:18:37,922 | INFO | root |   [retry 3] CCLM-00035: Connection error.
+2026-07-04 17:18:40,481 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.485861 seconds
+2026-07-04 17:18:41,901 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.811969 seconds
+2026-07-04 17:18:43,140 | INFO | root |   [retry 1] CCLM-00445: Connection error.
+2026-07-04 17:18:45,588 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.467327 seconds
+2026-07-04 17:18:46,413 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.907606 seconds
+2026-07-04 17:18:47,839 | INFO | root |   [retry 2] CCLM-00445: Connection error.
+2026-07-04 17:18:50,298 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.382220 seconds
+2026-07-04 17:18:51,527 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.911643 seconds
+2026-07-04 17:18:52,963 | INFO | root |   [retry 3] CCLM-00445: Connection error.
+2026-07-04 17:18:55,724 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.466760 seconds
+2026-07-04 17:18:57,685 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.871723 seconds
+2026-07-04 17:18:59,423 | INFO | root |   [retry 1] CCLM-00289: Connection error.
+2026-07-04 17:19:01,961 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.376776 seconds
+2026-07-04 17:19:02,997 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.832975 seconds
+2026-07-04 17:19:04,124 | INFO | root |   [retry 2] CCLM-00289: Connection error.
+2026-07-04 17:19:07,413 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.397663 seconds
+2026-07-04 17:19:08,802 | INFO | groq._base_client | Retrying request to /openai/v1/chat/completions in 0.868462 seconds
+2026-07-04 17:19:10,573 | INFO | root |   [retry 3] CCLM-00289: Connection error.
