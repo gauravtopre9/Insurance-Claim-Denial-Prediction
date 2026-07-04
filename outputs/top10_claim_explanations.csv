@@ -1,0 +1,11 @@
+claim_id,denial_probability,risk_tier,predicted_denial,top_risk_factors,explanation
+CCLM-00285,0.8432521,High Risk,1,prior authorization required but not on file; required documentation appears incomplete or missing,ERROR: explanation generation failed after retries.
+CCLM-00259,0.79165775,High Risk,1,prior authorization required but not on file; referral required but not present; billed amount is 2.8x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00116,0.77785844,High Risk,1,referral required but not present; patient eligibility not verified; billed amount is 2.9x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00214,0.76349556,High Risk,1,patient eligibility not verified; provider out of network for this payer; submitted late (37 days after service); billed amount is 3.2x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00386,0.7433474,Moderate Risk,1,required documentation appears incomplete or missing; submitted late (38 days after service),ERROR: explanation generation failed after retries.
+CCLM-00459,0.7423902,Moderate Risk,1,prior authorization required but not on file; patient eligibility not verified; provider out of network for this payer; billed amount is 2.5x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00099,0.7421517,Moderate Risk,1,prior authorization required but not on file; provider out of network for this payer; billed amount is 3.4x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00023,0.7196572,Moderate Risk,1,prior authorization required but not on file; required documentation appears incomplete or missing; submitted late (42 days after service),ERROR: explanation generation failed after retries.
+CCLM-00006,0.70650494,Moderate Risk,1,provider out of network for this payer; required documentation appears incomplete or missing,ERROR: explanation generation failed after retries.
+CCLM-00170,0.704128,Moderate Risk,1,patient eligibility not verified; required documentation appears incomplete or missing,ERROR: explanation generation failed after retries.

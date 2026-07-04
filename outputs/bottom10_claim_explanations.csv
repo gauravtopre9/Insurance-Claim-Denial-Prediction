@@ -1,0 +1,11 @@
+claim_id,denial_probability,risk_tier,predicted_denial,top_risk_factors,explanation
+CCLM-00001,0.08054882384588767,Low Risk,0,provider out of network for this payer; billed amount is 2.3x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00487,0.07644459425094555,Low Risk,0,submitted late (38 days after service),ERROR: explanation generation failed after retries.
+CCLM-00208,0.07568356836594488,Low Risk,0,no major administrative gaps identified,ERROR: explanation generation failed after retries.
+CCLM-00415,0.0712105692948359,Low Risk,0,no major administrative gaps identified,ERROR: explanation generation failed after retries.
+CCLM-00153,0.07093538501747465,Low Risk,0,no major administrative gaps identified,ERROR: explanation generation failed after retries.
+CCLM-00035,0.0707560588169081,Low Risk,0,billed amount is 2.2x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00010,0.06706334090479615,Low Risk,0,no major administrative gaps identified,ERROR: explanation generation failed after retries.
+CCLM-00022,0.0669508490501369,Low Risk,0,no major administrative gaps identified,ERROR: explanation generation failed after retries.
+CCLM-00155,0.06068286835115001,Low Risk,0,billed amount is 2.0x the expected payment,ERROR: explanation generation failed after retries.
+CCLM-00363,0.05456188394610655,Low Risk,0,no major administrative gaps identified,ERROR: explanation generation failed after retries.
