@@ -1,0 +1,14 @@
+numpy
+pandas
+matplotlib
+scikit-learn
+imbalanced-learn
+xgboost
+lightgbm
+optuna
+pyyaml
+shap
+langchain-groq
+langchain-core
+python-dotenv
+joblib
